@@ -1,59 +1,78 @@
-print("==========================")
-print("     PYTHON CALCULATOR")
-print("==========================")
-
-exist = "O"
+from time import sleep
 
 
-def add(number1, number2):
-    return number1 + number2
+def add(a, b):
+    return a + b
 
 
-def sub(number1, number2):
-    return number1 - number2
+def subtract(a, b):
+    return a - b
 
 
-def multi(number1, number2):
-    return number1 * number2
+def multiply(a, b):
+    return a * b
 
 
-def div(number1, number2):
-    if number2 != 0:
-        return number1 / number2
-    else:
+def divide(a, b):
+    if b == 0:
         return None
+    return a / b
 
 
-while exist != "N":
+def display_menu():
+    print("\n" + "=" * 35)
+    print("         PYTHON CALCULATOR")
+    print("=" * 35)
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Exit")
+    print("=" * 35)
 
-    number1 = float(input("Give me the first number: "))
-    number2 = float(input("Give me the second number: "))
 
-    op = input("Choose the operation: + | - | * | / ")
+def calculate(choice, number1, number2):
+    if choice == "1":
+        return add(number1, number2)
 
-    if op == "+":
-        s = add(number1, number2)
-        print(f"Result: {s}")
+    elif choice == "2":
+        return subtract(number1, number2)
 
-    elif op == "-":
-        s = sub(number1, number2)
-        print(f"Result: {s}")
+    elif choice == "3":
+        return multiply(number1, number2)
 
-    elif op == "*":
-        s = multi(number1, number2)
-        print(f"Result: {s}")
+    elif choice == "4":
+        return divide(number1, number2)
 
-    elif op == "/":
-        s = div(number1, number2)
+    return None
 
-        if s is None:
-            print("Error: Cannot divide by zero.")
+
+def main():
+    while True:
+        display_menu()
+
+        choice = input("Choose an option: ").strip()
+
+        if choice == "5":
+            print("\nGoodbye! 👋")
+            break
+
+        if choice not in ("1", "2", "3", "4"):
+            print("\nInvalid option.")
+            continue
+
+        number1 = float(input("Enter first number: "))
+        number2 = float(input("Enter second number: "))
+
+        result = calculate(choice, number1, number2)
+
+        if choice == "4" and number2 == 0:
+            print("\nError: Cannot divide by zero.")
         else:
-            print(f"Result: {s}")
+            print(f"\nResult: {result}")
 
-    else:
-        print("Invalid operation.")
+        sleep(1)
 
-    exist = input("Do you want to continue? O/N: ").upper()
 
-print("Goodbye!")
+if __name__ == "__main__":
+    main()
